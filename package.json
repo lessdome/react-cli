@@ -1,8 +1,8 @@
 {
   "name": "react-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
-  "main": "./src/main.js",
+  "main": "./src/main.tsx",
   "scripts": {
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development webpack serve --config=./config/webpack.config.js",
