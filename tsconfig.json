@@ -15,7 +15,12 @@
     "isolatedModules": true,
     "noEmit": false,
     "jsx": "react-jsx",
-    "downlevelIteration": true
+    "paths": {
+      "@/components/*": ["./src/components/*"],
+      "@/store/*": ["./src/store/*"],
+      "@/styles/*": ["./src/styles/*"],
+      "@/views/*": ["./src/views/*"]
+    }
   },
 
   //  "compilerOptions": {

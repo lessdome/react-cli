@@ -1,43 +1,15 @@
-import {lazy, Suspense} from 'react'
-import {BrowserRouter, Link, Route, Routes} from 'react-router-dom'
-import {Button, ConfigProvider} from 'antd'
+import {FC} from 'react'
+import Layout from './components/layout'
+import Router from './router'
+import Store from './store'
 
-const Home = lazy(() => import('./views/home'))
-const About = lazy(() => import('./views/about'))
+import './styles/reset/index.scss'
 
-const App = () => {
+const App: FC = () => {
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: 'pink',
-        },
-      }}>
-      <BrowserRouter>
-        <h1>App</h1>
-        <Button type="primary">按钮</Button>
-        <Link to="/home">Home</Link>
-        <Link to="/about">About</Link>
-        <Routes>
-          <Route
-            path="/home"
-            element={
-              <Suspense fallback={<div>loading ...</div>}>
-                <Home />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/about"
-            element={
-              <Suspense fallback={<div>loading ...</div>}>
-                <About />
-              </Suspense>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
-    </ConfigProvider>
+    <Store>
+      <Router layout={Layout} />
+    </Store>
   )
 }
 

@@ -10,3 +10,6 @@
 - ts
 - react@18
 - postcss
+- hmr
+- react router v6 + 路由懒加载
+- @redux-toolkit

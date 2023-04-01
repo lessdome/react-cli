@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+// const WorkboxPlugin = require('workbox-webpack-plugin')
 
 const mode = process.env.NODE_ENV
 
@@ -20,7 +21,18 @@ const getStyleloader = (...tail) =>
       loader: 'postcss-loader',
       options: {
         postcssOptions: {
-          plugins: ['postcss-preset-env'],
+          plugins: [
+            'postcss-preset-env',
+            [
+              'postcss-px-to-viewport',
+              {
+                unitToConvert: 'px',
+                viewportWidth: 375,
+                unitPrecision: 10,
+                minPixelValue: 0,
+              },
+            ],
+          ],
         },
       },
     },
@@ -103,6 +115,12 @@ module.exports = {
         filename: 'static/css/[name].[contenthash].css',
         chunkFilename: 'static/css/[name].[contenthash].chunk.css',
       }),
+    // new WorkboxPlugin.GenerateSW({
+    //   // 这些选项帮助快速启用 ServiceWorkers
+    //   // 不允许遗留任何“旧的” ServiceWorkers
+    //   clientsClaim: true,
+    //   skipWaiting: true,
+    // }),
     /// react hmr
     !isProduction && new ReactRefreshWebpackPlugin(),
   ].filter(Boolean),
@@ -118,6 +136,12 @@ module.exports = {
     ),
   },
   resolve: {
+    alias: {
+      '@/components': path.resolve(__dirname, '../src/components'),
+      '@/store': path.resolve(__dirname, '../src/store'),
+      '@/styles': path.resolve(__dirname, '../src/styles'),
+      '@/views': path.resolve(__dirname, '../src/views'),
+    },
     extensions: ['.js', '.jsx', '.json', '.css', '.less', '.scss', '.sass', '.ts', '.tsx'],
   },
   ...(!isProduction
