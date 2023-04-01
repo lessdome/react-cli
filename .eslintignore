@@ -1,0 +1,6 @@
+dist/*
+config/*
+.eslintrc.js
+.babelrc.js
+postcss.config.js
+tsconfig.json
